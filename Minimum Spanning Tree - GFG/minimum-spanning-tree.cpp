@@ -17,10 +17,10 @@ class Solution
         int sum = 0;
         
         while(!pq.empty()){
-            auto it = pq.top();
+            auto it1 = pq.top();
             pq.pop();
-            int node = it.second;
-            int wt = it.first;
+            int node = it1.second;
+            int wt = it1.first;
             
             if(vis[node]==1) continue;
             vis[node] = 1;
