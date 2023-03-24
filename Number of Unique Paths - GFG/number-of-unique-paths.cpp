@@ -31,29 +31,55 @@ class Solution
     // }
     
     
-    //TABULATION WALA SOLUTION HAI!!
+    // //TABULATION WALA SOLUTION HAI!!
+    // int NumberOfPath(int a, int b){
+    //     vector<vector<int>>dp(a, vector<int>(b, -1));
+        
+        
+        
+    //     for(int i = 0; i<a; i++){
+    //         for(int j = 0; j<b; j++){
+    //             if(i==0 && j==0){
+    //                 dp[0][0] = 1;
+    //                 continue;
+    //             }
+                
+    //             int up = 0, left = 0;
+                
+    //             if(i>0) up = dp[i-1][j];
+                
+    //             if(j>0) left = dp[i][j-1];
+                
+    //             dp[i][j] = up + left;
+    //         }
+    //     }
+    //     return dp[a-1][b-1];
+    // }
+    
     int NumberOfPath(int a, int b){
-        vector<vector<int>>dp(a, vector<int>(b, -1));
-        
-        
+        vector<int>prev(a,0);
         
         for(int i = 0; i<a; i++){
+            vector<int>temp(b, 0);
+            
             for(int j = 0; j<b; j++){
-                if(i==0 && j==0){
-                    dp[0][0] = 1;
+                if(i==0 && j==0) 
+                {
+                    temp[j] = 1;
                     continue;
                 }
                 
-                int up = 0, left = 0;
+                int up = 0;
+                int left = 0;
                 
-                if(i>0) up = dp[i-1][j];
+                if(i>0) up = prev[j];
+                if(j>0) left = temp[j-1];
                 
-                if(j>0) left = dp[i][j-1];
-                
-                dp[i][j] = up + left;
+                temp[j] = up+left;
             }
+            prev = temp;
         }
-        return dp[a-1][b-1];
+        return prev[b-1];
     }
 };
 
