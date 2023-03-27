@@ -19,7 +19,7 @@ class Solution {
 
     long long int topDown(int n) {
 
-    //   if(n==0) return dp[0]=0;
+      if(n==0) return dp[0]=0;
 
       if(n<=1) return dp[n]=n;
 
@@ -31,7 +31,7 @@ class Solution {
 
     long long int bottomUp(int n) {
 
-        // vector<long long int> dp(n+1);
+        vector<long long int> dp(n+1);
 
         dp[0]=0;
 
@@ -43,7 +43,7 @@ class Solution {
 
         }
 
-        return dp[n]%MOD;
+        return dp[n];
 
     }
 
