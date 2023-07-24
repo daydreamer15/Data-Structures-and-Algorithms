@@ -9,40 +9,41 @@ using namespace std;
 // User function Template for C++
 
 class Solution {
-    
   public:
     vector<int> eventualSafeNodes(int V, vector<int> adj[]) {
         // code here
-        vector<int>adjRev[V];
-        int indegree[V] = {0};
+        
+        vector<int>adjrev[V];
+        vector<int>indegree(V, 0);
         
         for(int i = 0; i<V; i++){
             for(auto it: adj[i]){
-                adjRev[it].push_back(i);
+                adjrev[it].push_back(i);
                 indegree[i]++;
             }
         }
         
         queue<int>q;
+        vector<int>answer;
+        
         for(int i = 0; i<V; i++){
-            if(indegree[i]==0){
-                q.push(i);
-            }
+            if(indegree[i]==0) q.push(i);
         }
         
-        vector<int>safenodes;
         while(!q.empty()){
             int node = q.front();
             q.pop();
-            safenodes.push_back(node);
+            answer.push_back(node);
             
-            for(auto it: adjRev[node]){
+            for(auto it: adjrev[node]){
                 indegree[it]--;
-                if(indegree[it]==0)q.push(it);
+                if(indegree[it]==0) q.push(it);
             }
+            
+            
         }
-        sort(safenodes.begin(), safenodes.end());
-        return safenodes;
+        sort(answer.begin(), answer.end());
+        return answer;
     }
 };
 
