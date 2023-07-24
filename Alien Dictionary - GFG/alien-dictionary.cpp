@@ -8,10 +8,9 @@ using namespace std;
 // User function Template for C++
 
 class Solution{
-    
-    private:
-    vector<int>toposort(vector<int>adj[], int V){
-        int indegree[V] = {0};
+    public:
+    vector<int> topo(vector<int>adj[], vector<int>&indegree, int V){
+        
         for(int i = 0; i<V; i++){
             for(auto it: adj[i]){
                 indegree[it]++;
@@ -20,29 +19,26 @@ class Solution{
         
         queue<int>q;
         for(int i = 0; i<V; i++){
-            if(indegree[i]==0){
-                q.push(i);
-        }
+            if(indegree[i]==0) q.push(i);
         }
         
-        vector<int>topo;
+        
+        vector<int>ans;
         while(!q.empty()){
             int node = q.front();
             q.pop();
-            topo.push_back(node);
+            
+            
+            ans.push_back(node);
             
             for(auto it: adj[node]){
                 indegree[it]--;
-                if(indegree[it]==0)q.push(it);
+                if(indegree[it]==0) q.push(it);
             }
         }
-
-        return topo;
+        
+        return ans;
     }
-    
-    
-    
-    public:
     string findOrder(string dict[], int N, int K) {
         //code here
         vector<int>adj[K];
@@ -52,23 +48,26 @@ class Solution{
             string s2 = dict[i+1];
             
             int len = min(s1.size(), s2.size());
-            
-            for(int ptr = 0; ptr<len; ptr++){
-                if(s1[ptr]!=s2[ptr]){
-                    adj[s1[ptr]-'a'].push_back(s2[ptr]-'a');
+            for(int j = 0; j<len; j++){
+                if(s1[j]!=s2[j]){
+                    adj[s1[j]-'a'].push_back(s2[j]-'a');
                     break;
                 }
             }
         }
         
-        vector<int>topo = toposort(adj, K);
+        vector<int>indegree(K, 0);
+        vector<int>topovec = topo(adj, indegree, K);
         string ans = "";
-        for(auto it: topo){
-            ans = ans + char(it + 'a');
+        
+        for(auto it: topovec){
+            ans = ans + char(it+'a');
         }
         return ans;
     }
 };
+
+
 
 //{ Driver Code Starts.
 string order;
