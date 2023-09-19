@@ -5,30 +5,31 @@ using namespace std;
 // } Driver Code Ends
 class Solution{
     public:
-    int search(int nums[], int l, int h, int key){
+    int search(int arr[], int l, int h, int key){
         // l: The starting index
         // h: The ending index, you have to search the key in this range
         
         //complete the function here
         while(l<=h){
-            int mid = l + (h-l)/2;
+            int mid = (l+h)/2;
             
-            if(nums[mid]==key) return mid;
+            if(arr[mid]==key) return mid;
             
-            else if(nums[l]==key) return l;
-            
-            else if(nums[h]==key) return h;
-            
-            if(nums[l]<nums[mid]){
+            if(arr[l]<=arr[mid]){
+                if(arr[l]<=key && arr[mid]>=key){
+                    h = mid-1;
+                }
                 
-                if(nums[l]<key && nums[mid]>=key) h = mid -1;
-                else l = mid+1;
+                else{
+                    l = mid+1;
+                }
             }
             
             else{
-                if(nums[h]>=key && nums[mid]<key){
+                if(arr[mid]<=key && arr[h]>=key){
                     l = mid+1;
                 }
+                
                 else{
                     h = mid-1;
                 }
