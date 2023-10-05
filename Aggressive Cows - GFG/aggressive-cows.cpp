@@ -30,16 +30,22 @@ public:
         
         int l = 0;
         int h = stalls[n-1];
+        int ans = INT_MAX;
         
         while(l<=h){
             int mid = (l+h)/2;
             
-            if(possible(n, k, stalls, mid))
-            l = mid+1;
+            if(possible(n, k, stalls, mid)){
+                l = mid+1;
+            }
             
-            else h = mid-1;
+            
+            else {
+                h = mid-1;
+                if(h<ans) ans = h;
+            }
         }
-        return h;
+        return ans;
     }
 };
 
