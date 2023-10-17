@@ -102,27 +102,24 @@ class Solution {
     int getMaxWidth(Node* root) {
 
         // Your code here
-        if(root==NULL) return 0;
-        
+                    int mw = INT_MIN;
+
         queue<Node*>q;
+        
         q.push(root);
-        
-        int maxi = 0;
-        
         while(!q.empty()){
             int count = q.size();
-            maxi = max(maxi, count);
+            mw = max(mw, count);
             
-            for(int i = 0; i<count; i++){
-                Node*curr = q.front();
+            while(count--){
+                Node* curr = q.front();
                 q.pop();
                 
-                if(curr->left!=NULL) q.push(curr->left);
-                if(curr->right!=NULL) q.push(curr->right);
+                if(curr->left) q.push(curr->left);
+                if(curr->right) q.push(curr->right);
             }
-            
         }
-        return maxi;
+        return mw;
     }
 };
 
